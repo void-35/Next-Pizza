@@ -21,7 +21,7 @@ const VAT = 15;
 const DELIVERY_PRICE = 990;
 
 
-const Page: React.FC<Props> = () => {
+export default function Page() {
     const [submitting, setSubmitting] = useState(false)
     const { cartItems, totalPrice, loading, deleteCartItem, onCountChange } = useCart(true);
     const { data: session } = useSession()
@@ -105,5 +105,3 @@ const Page: React.FC<Props> = () => {
         </Container>
     );
 };
-
-export default Page
