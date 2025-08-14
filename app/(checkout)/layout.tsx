@@ -8,16 +8,13 @@ export const metadata: Metadata = {
 
 export default function CheckoutLayout({
     children,
-    modal
 }: {
     children: React.ReactNode;
-    modal: React.ReactNode;
 }) {
     return (
         <main className="min-h-screen bg-[#F4F1EE]">
             <Header hasCart={false} hasSearch={false} />
             {children}
-            {modal}
         </main>
     );
 }
