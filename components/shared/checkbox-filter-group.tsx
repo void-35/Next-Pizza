@@ -7,7 +7,7 @@ import { Input, Skeleton } from '../ui';
 
 interface Props {
     className?: string;
-    selectedIds: Set<String>
+    selectedIds: Set<string>
     title: string
     items: FilterChecboxProps[]
     defaultItems?: FilterChecboxProps[]

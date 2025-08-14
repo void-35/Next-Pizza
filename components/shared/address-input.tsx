@@ -1,12 +1,9 @@
 'use client'
 
-import { ISuggestion, getAddresses } from '@/services/addresses';
-import { useEffect, useState } from 'react';
-import { AddressSuggestions } from 'react-dadata';
+import {useState } from 'react';
 import 'react-dadata/dist/react-dadata.css';
 import { Input } from '../ui';
 import { useFormContext } from 'react-hook-form';
-import { HighlightWords } from './highlight-words';
 import { ClearButton } from './clear-button';
 import { ErrorText } from './error-text';
 import { HighlightWordsModal } from './highlight-words-modal';
@@ -18,7 +15,7 @@ interface Props {
 }
 
 
-export const AddressInput: React.FC<Props> = ({ name, onChange, label }) => {
+export const AddressInput: React.FC<Props> = ({ name, label }) => {
     const [modalStatus, setModalStatus] = useState(false)
     const { register, formState: { errors }, setValue, watch } = useFormContext()
     const query = watch(name)

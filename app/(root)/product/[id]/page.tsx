@@ -1,4 +1,4 @@
-import { ChooseProductForm, Container, GroupVariants, PizzaImage, Title } from "@/components/shared"
+import { ChooseProductForm, Container } from "@/components/shared"
 import { ProductsGroupList } from "@/components/shared/products-group-list"
 import { prisma } from "@/prisma/prisma-client"
 import { notFound } from "next/navigation"

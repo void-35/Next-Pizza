@@ -21,7 +21,7 @@ const VAT = 15;
 const DELIVERY_PRICE = 990;
 
 
-const Page: React.FC<Props> = ({ className }) => {
+const Page: React.FC<Props> = () => {
     const [submitting, setSubmitting] = useState(false)
     const { cartItems, totalPrice, loading, deleteCartItem, onCountChange } = useCart(true);
     const { data: session } = useSession()

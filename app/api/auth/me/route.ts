@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = 'force-dynamic'
 
-export async function GET(req: NextRequest) {
+export async function GET() {
     try {
         const user = await getUserSession()
         if (!user) {
@@ -25,6 +25,6 @@ export async function GET(req: NextRequest) {
         }
         return NextResponse.json(findUser)
     } catch (error) {
-
+        console.log(error)
     }
 }

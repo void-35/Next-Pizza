@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Container, GroupVariants, PizzaImage, ProductModal, Title } from "@/components/shared"
+import {  ProductModal } from "@/components/shared"
 import { prisma } from "@/prisma/prisma-client"
 import { notFound } from "next/navigation"
 

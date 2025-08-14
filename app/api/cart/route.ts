@@ -1,14 +1,12 @@
-import { calcCartItemTotalPrice, updateCartTotalAmount } from "@/lib";
+import { updateCartTotalAmount } from "@/lib";
 import { getOrCreateCart } from "@/lib/get-or-create-cart";
 import { prisma } from "@/prisma/prisma-client";
-import { AddToCartValues, CartItemDTO } from "@/services/dto/cart";
-import { CartItem } from "@prisma/client";
+import { AddToCartValues} from "@/services/dto/cart";
 import { NextRequest, NextResponse } from "next/server";
 import crypto from 'crypto';
 
 export async function GET(req: NextRequest) {
     try {
-        const userId = 1;
         const token = req.cookies.get('cartToken')?.value;
 
         if (!token) {
