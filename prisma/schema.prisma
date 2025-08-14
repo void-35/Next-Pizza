@@ -1,157 +1,176 @@
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DATABASE_URL_UNPOOLED")
+    provider  = "postgresql"
+    url       = env("DATABASE_URL")
+    directUrl = env("DATABASE_URL_UNPOOLED")
 }
 
 model User {
-  id Int @id @default(autoincrement())
+    id Int @id @default(autoincrement())
 
-  cart         Cart?
-  order        Order[]
-  verifyCode   VerifyCode?
-  verfied DateTime
+    cart       Cart?
+    order      Order[]
+    verifyCode VerifyCode?
+    verfied    DateTime?
 
-  fullname String
-  email    String @unique
-  password String
-  userRole Role   @default(USER)
+    fullname String
+    email    String @unique
+    password String
+    userRole Role   @default(USER)
 
-  provider   String?
-  providerId String?
+    provider   String?
+    providerId String?
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 model Product {
-  id Int @id @default(autoincrement())
+    id Int @id @default(autoincrement())
 
-  name        String
-  imageUrl    String
-  category    Category     @relation(fields: [categoryId], references: [id])
-  categoryId  Int
-  ingredients Ingredient[]
-  variants    Variant[]
+    name        String
+    imageUrl    String
+    category    Category     @relation(fields: [categoryId], references: [id])
+    categoryId  Int
+    ingredients Ingredient[]
+    variants    Variant[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 model Variant {
-  id Int @id @default(autoincrement())
+    id Int @id @default(autoincrement())
 
-  size      Int?
-  price     Int
-  pizzaType Int?
+    size      Int?
+    price     Int
+    pizzaType Int?
 
-  cartItem  CartItem[]
-  product   Product    @relation(fields: [productId], references: [id])
-  productId Int
+    cartItem  CartItem[]
+    product   Product    @relation(fields: [productId], references: [id])
+    productId Int
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 model Category {
-  id Int @id @default(autoincrement())
+    id Int @id @default(autoincrement())
 
-  name     String
-  products Product[]
+    name     String
+    products Product[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 model Ingredient {
-  id Int @id @default(autoincrement())
+    id Int @id @default(autoincrement())
 
-  name     String
-  imageUrl String
-  price    Int
+    name     String
+    imageUrl String
+    price    Int
 
-  products  Product[]
-  cartItems CartItem[]
+    products  Product[]
+    cartItems CartItem[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 model Cart {
-  id Int @id @default(autoincrement())
+    id Int @id @default(autoincrement())
 
-  userId Int?  @unique
-  user   User? @relation(fields: [userId], references: [id])
+    userId Int?  @unique
+    user   User? @relation(fields: [userId], references: [id])
 
-  items CartItem[]
+    items CartItem[]
 
-  token       String
-  totalAmount Int
+    token       String?
+    totalAmount Int     @default(0)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 model CartItem {
-  id Int @id @default(autoincrement())
+    id Int @id @default(autoincrement())
 
-  cartId      Int
-  cart        Cart         @relation(fields: [cartId], references: [id])
-  variantId   Int
-  variant     Variant      @relation(fields: [variantId], references: [id])
-  ingredients Ingredient[]
+    cartId      Int
+    cart        Cart         @relation(fields: [cartId], references: [id])
+    variantId   Int
+    variant     Variant      @relation(fields: [variantId], references: [id])
+    ingredients Ingredient[]
 
-  quantity Int
+    quantity Int
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 model Order {
-  id Int @id @default(autoincrement())
+    id Int @id @default(autoincrement())
 
-  user   User @relation(fields: [userId], references: [id])
-  userId Int
+    user   User? @relation(fields: [userId], references: [id])
+    userId Int?
 
-  token String?
+    token String?
+    items Json?
 
-  status      OrderStatus
-  totalAmount Int
-  paymentId   String
+    status      OrderStatus
+    totalAmount Int
+    paymentId   String?
 
-  fullName String
-  enail    String
-  address  String
-  phone    String
-  comment  String
+    fullName String
+    email    String
+    address  String
+    phone    String
+    comment  String?
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Story {
+    id              Int    @id @default(autoincrement())
+    previewImageUrl String
+
+    items     StoryItem[]
+    createdAt DateTime    @default(now())
+}
+
+model StoryItem {
+    id Int @id @default(autoincrement())
+
+    story   Story @relation(fields: [storyId], references: [id])
+    storyId Int
+
+    sourceUrl String
+    createdAt DateTime @default(now())
 }
 
 model VerifyCode {
-  id Int @id @default(autoincrement())
+    id Int @id @default(autoincrement())
 
-  user   User @relation(fields: [userId], references: [id])
-  userId Int  @unique
+    user   User @relation(fields: [userId], references: [id])
+    userId Int  @unique
 
-  code      String   @unique
-  createdAt DateTime @default(now())
+    code      String
+    createdAt DateTime @default(now())
 
-  @@unique([userId, code])
+    @@unique([userId, code])
 }
 
 enum OrderStatus {
-  PENDING
-  SUCCEEDED
-  CANCEL
+    PENDING
+    SUCCEEDED
+    CANCEL
 }
 
 enum Role {
-  USER
-  ADMIN
+    USER
+    ADMIN
 }

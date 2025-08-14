@@ -1,17 +1,42 @@
+"use client"
+
 import { cn } from '@/lib/utils';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container } from './container';
 import Image from 'next/image';
 import { Button } from '../ui';
-import { ArrowRight, ShoppingCart, User } from 'lucide-react';
+import { User } from 'lucide-react';
 import Link from 'next/link';
 import { SearchInput } from './searchInput';
+import { CartDrawer } from './cart-drawer';
+import { CartButton } from './cart-button';
+import { useRouter, useSearchParams } from 'next/navigation';
+import toast from 'react-hot-toast';
+import { signIn, useSession } from 'next-auth/react';
+import { ProfileButton } from './profile-button';
+import { AuthModal } from './modals/auth-modal';
 
 interface Props {
     className?: string;
+    hasCart?: boolean;
+    hasSearch?: boolean;
 }
 
-export const Header: React.FC<Props> = ({ className }) => {
+export const Header: React.FC<Props> = ({ className, hasCart = true, hasSearch = true }) => {
+    const searchParam = useSearchParams()
+    const router = useRouter()
+    const [authModal, setAuthModal] = useState(false)
+
+    useEffect(() => {
+        if (searchParam.has('paid')) {
+            toast.success('Заказ успешно оплачен! Информация отправлена на почту.')
+            router.replace('/', undefined);
+        }
+        if (searchParam.has('verified')) {
+            toast.success('Почта успешно подтверждена!')
+            router.replace('/', undefined);
+        }
+    }, [])
     return (
         <header className={cn('border border-b', className)}>
             <Container className='flex items-center justify-between py-8'>
@@ -24,29 +49,19 @@ export const Header: React.FC<Props> = ({ className }) => {
                         </div>
                     </div>
                 </Link>
-                <div className='mx-10 flex-1'>
-                    <SearchInput />
-                </div>
-
-                <div className='flex items-center gap-3'>
-                    <Button variant={'outline'} className='flex items-center gap-1' >
-                        <User size={16} />
-                        Войти
-                    </Button>
-                    <div>
-                        <Button className='group relative'>
-                            <b>4530₸</b>
-                            <span className='h-full w-[1px] bg-white/30 mx-3'></span>
-                            <div className='flex items-center gap-1 transition duration-300 group-hover:opacity-0'>
-                                <ShoppingCart className='h-4 w-4 relative' strokeWidth={2} />
-                                <b>3</b>
-                            </div>
-                            <ArrowRight className="w-5 absolute right-5 transition duration-300 -translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0" />
-
-                        </Button>
+                {
+                    hasSearch &&
+                    <div className='mx-10 flex-1 max-sm:hidden'>
+                        <SearchInput />
                     </div>
-                </div>
+                }
 
+
+                <div className={cn(className, 'flex items-center gap-3')}>
+                    <AuthModal open={authModal} onClose={() => { setAuthModal(false) }} />
+                    <ProfileButton onClickSignIn={() => setAuthModal(true)} />
+                    {hasCart && <CartButton />}
+                </div>
             </Container>
         </header>
     );
