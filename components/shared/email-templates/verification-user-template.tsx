@@ -13,7 +13,7 @@ export function VerificationUserTemplate({ verifyCode }: PayOrderTemplate) {
                 <Container style={{ backgroundColor: '#ffffff', padding: '20px', borderRadius: '8px' }}>
                     <Heading style={{ fontSize: '20px', marginBottom: '10px' }}>Код подтверждения</Heading>
                     <Text>Код подтверждения: <h2>{verifyCode}</h2></Text>
-                    <Link href={`http://localhost:3000/api/auth/verify?code=${verifyCode}`}>Подтвердить регистрацию</Link>
+                    <Link href={`${process.env.HOSTING_URL}/api/auth/verify?code=${verifyCode}`}>Подтвердить регистрацию</Link>
                 </Container>
             </Body>
         </Html>

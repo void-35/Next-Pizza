@@ -19,40 +19,41 @@ export const AuthModal: React.FC<Props> = ({ className, open, onClose }) => {
         setType(type === 'login' ? 'register' : 'login')
     }
 
-    const handleClose = ()=>{
+    const handleClose = () => {
         onClose()
+        setType('login')
     }
 
     return (
-        <Dialog open={open} >
-            <DialogContent className={cn(className, 'w-[450px] bg-white p-10')}>
-
-                {type=='login' ? <LoginForm onClose={handleClose}/> : <RegisterForm onClose={handleClose} />}
-
-                <Button
-                    onClick={() =>
-                        signIn("github", { callbackUrl: '/', redirect: true })
-                    }
-                    variant={'secondary'}
-                    className='gap-2 h-12 p-2 flex-1'
-                >
-                    <img className='w-5 h-5' src='https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png' />
-                    Github
-                </Button>
-                <Button
-                    onClick={() =>
-                        signIn("google", { callbackUrl: '/', redirect: true })
-                    }
-                    variant={'secondary'}
-                    className='gap-2 h-12 p-2 flex-1'
-                >
-                    <img className='w-5 h-5' src='https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg' />
-                    Google
-                </Button>
+        <Dialog open={open} onOpenChange={() => handleClose()}>
+            <DialogContent className={cn(className, 'flex flex-col max-w-[450px] overflow-auto  bg-white max-sm:h-full')}>
+                {type == 'login' ? <LoginForm onClose={handleClose} /> : <RegisterForm onClose={handleClose} />}
+                <div className='flex gap-3'>
+                    <Button
+                        onClick={() =>
+                            signIn("github", { callbackUrl: '/', redirect: true })
+                        }
+                        variant={'secondary'}
+                        className='gap-2 h-12 p-2 flex-1'
+                    >
+                        <img className='w-5 h-5' src='https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png' />
+                        Github
+                    </Button>
+                    <Button
+                        onClick={() =>
+                            signIn("google", { callbackUrl: '/', redirect: true })
+                        }
+                        variant={'secondary'}
+                        className='gap-2 h-12 p-2 flex-1'
+                    >
+                        <img className='w-5 h-5' src='https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg' />
+                        Google
+                    </Button>
+                </div>
                 <Button variant='outline' onClick={onChangeType} type='button' className='h-12'>
                     {type == 'login' ? 'зарегистрироваться' : "Войти в аккаунт"}
                 </Button>
-            <DialogTitle className='hidden'></DialogTitle>
+                <DialogTitle className='hidden'></DialogTitle>
             </DialogContent>
         </Dialog>
     );

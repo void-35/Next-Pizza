@@ -8,6 +8,7 @@ import { CheckboxFilterGroup } from './checkbox-filter-group';
 import { useFilterParams, useFilters, useIngredients } from '@/hooks';
 import qs from 'qs';
 import { useRouter } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 interface Props {
     className?: string;
@@ -48,7 +49,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
     }
 
     return (
-        <div className={className}>
+        <div className={cn(className, 'pl-3')}>
             <Title text='Филтры' size='md' className='mb-5 font-bold' />
             <CheckboxFilterGroup
                 name="pizzaTypes"
