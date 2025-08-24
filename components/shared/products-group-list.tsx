@@ -31,7 +31,7 @@ export const ProductsGroupList: React.FC<Props> = ({ className, title, items, ca
     return (
         <div className={className} id={title}>
             {items.filter((item) => item.categoryId == categoryId).length == 0 ? "" :
-                <Title text={title} size='lg' className='font-extrabold mb-3' />
+                <Title text={title} size='lg' className='font-extrabold mb-3 ml-5' />
             }
             <div ref={ref} className={cn('grid grid-cols-3 gap-[50px] max-sm:grid-cols-1 max-sm:p-3', listClassName)}>
                 {items.filter((item) => item.categoryId == categoryId).map((item, id) => (

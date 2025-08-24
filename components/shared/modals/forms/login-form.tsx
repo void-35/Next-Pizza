@@ -44,7 +44,7 @@ export const LoginForm: React.FC<Props> = ({ onClose }) => {
         <FormProvider {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className='flex flex-col gap-5'>
 
-                <div className='flex justify-center items-center'>
+                <div className='flex justify-center items-center max-sm:pt-5'>
                     <div className='mr-2'>
                         <Title text='Вход в аккаунт' size='md' className='font-bold' />
                         <p>Введите свою почтуб чтобы войти в аккаунт</p>

@@ -29,7 +29,6 @@ export const ProfileForm: React.FC<Props> = ({ data }) => {
     })
 
     const onSubmit = async (data: TRegisterSchema) => {
-        console.log(21312123123)
         try {
             await updateUserInfo({
                 email: data.email,
@@ -54,10 +53,10 @@ export const ProfileForm: React.FC<Props> = ({ data }) => {
     }
 
     return (
-        <Container className='my-10 ml-10'>
+        <Container className='my-10 mx-5'>
             <Title text='Личные данные' size='md' className='font-bold' />
             <FormProvider {...form}>
-                <form className="flex flex-col gap-5 w-96 mt-10" onSubmit={form.handleSubmit(onSubmit)}>
+                <form className="flex flex-col gap-5 max-w-96 mt-10" onSubmit={form.handleSubmit(onSubmit)}>
                     <FormInput name="email" label="E-Mail" required />
                     <FormInput name="fullName" label="Полное имя" required />
 

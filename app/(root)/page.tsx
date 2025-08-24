@@ -9,12 +9,14 @@ export default async function Home({ searchParams }: { searchParams: Promise<Get
     const categories = await findPizaa(searchParams)
     return (
         <div>
-            <Container className='mt-10'>
-                <Title text="Все пиццы" size="lg" className="font-extrabold" />
-            </Container>
-            <Stories />
-            <FilterButton className="sm:hidden max-sm:mt-3"/>
-            <TopBar categories={categories} />
+            <div className="ml-3">
+                <Container className='mt-10'>
+                    <Title text="Все пиццы" size="lg" className="font-extrabold" />
+                </Container>
+                <Stories />
+                <FilterButton className="sm:hidden max-sm:mt-3" />
+                <TopBar categories={categories} />
+            </div>
             <Container className="mt-10 pb-14">
                 <div className="flex gap-[80px]">
                     <div className="w-[250px] max-sm:hidden">

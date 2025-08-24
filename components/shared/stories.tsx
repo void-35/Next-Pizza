@@ -40,7 +40,7 @@ export const Stories: React.FC<Props> = ({ className }) => {
     return (
         <Container
             className={cn(
-                'flex items-center gap-2 justify-start my-[20px] overflow-x-auto scrollbar-hide',
+                'flex items-center gap-2 justify-start my-[20px] overflow-x-auto',
                 className
             )}
         >
@@ -63,10 +63,9 @@ export const Stories: React.FC<Props> = ({ className }) => {
 
             {open && (
                 <div className='fixed inset-0 bg-black/80 flex items-center justify-center z-40 p-2 sm:p-0'>
-
-                    <div className='relative w-full max-w-[520px] h-[80%] sm:h-auto'>
+                    <div className='relative max-w-[520px] sm:h-auto'>
                         <button
-                            className='absolute top-3 max-sm:!-translate-y-20 right-3 sm:-right-10 sm:-top-5 z-50'
+                            className='absolute top-3 max-sm:!-translate-y-12 right-2 sm:-right-10 sm:-top-5 z-50'
                             onClick={() => onHandleStoryOpen(false)}
                         >
                             <X className='w-8 h-8 text-white/80 hover:text-white' />
@@ -78,9 +77,8 @@ export const Stories: React.FC<Props> = ({ className }) => {
                                     url: item.sourceUrl,
                                 })) || []
                             }
+                            height='100%'
                             defaultInterval={30000}
-                            width={'100%'}
-                            height={'100%'}
                         />
                     </div>
                 </div>
