@@ -31,7 +31,7 @@ export const sendEmail = async (to: string, subject: string, EmailTemplate: Reac
 
     const email = await render(EmailTemplate)
     const info = await transporter.sendMail({
-        from: `"Next Pizza" ${process.env.MAIL_USER}`,
+        from: `"Next Pizza" ${process.env.GMAIL_USER}`,
         to,
         subject,
         text: "Hello!", 
