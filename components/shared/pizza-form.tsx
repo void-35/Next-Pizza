@@ -7,7 +7,7 @@ import { ProductRelations } from '@/@types/prisma';
 import { GroupVariants } from './group-variants';
 import { PizzaSizes, PizzaTypes, basePizzaSizes, mapPizzaType } from '@/constants/pizza';
 import { IngredientCard } from './ingredient-card';
-import { pizzaCalc  } from '@/lib';
+import { pizzaCalc } from '@/lib';
 import { usePizzaOptions } from '@/hooks';
 
 interface Props {
@@ -40,7 +40,7 @@ export const PizzaForm: React.FC<Props> = ({ className, name, imageUrl, ingredie
 
             <PizzaImage src={imageUrl} size={selectedSize} className='max-lg:hidden' />
 
-            <div className=" bg-[#f5f3f3] p-7 lg:max-w-[450px] max-lg:mx-auto max-lg:w-full max-lg:bg-white">
+            <div className=" bg-[#f5f3f3] p-5 lg:max-w-[450px] max-lg:mx-auto max-lg:w-full max-lg:bg-white">
 
                 <Title text={name} size="md" className="font-extrabold mb-1" />
                 <p className="text-gray-400">{pizzaDescription}</p>
@@ -48,11 +48,10 @@ export const PizzaForm: React.FC<Props> = ({ className, name, imageUrl, ingredie
 
                 <GroupVariants items={basePizzaSizes} selectedVariant={String(selectedSize)} onClick={(value) => { setSelectedSizes(Number(value) as PizzaSizes) }} />
                 <GroupVariants items={newPizzaTypes} selectedVariant={String(selectedPizzaType)} onClick={(value) => { setSelectedPizzaType(Number(value) as PizzaTypes) }} />
+                <h2 className='text-2xl font-bold pt-3 pb-2'>Добавить по вкусу</h2>
 
-                <div className='my-[20px] p-5 rounded-md h-[420px] overflow-auto scrollbar'>
-                    <h2 className='text-2xl font-[600]'>Добавить по вкусу</h2>
-
-                    <div className='grid grid-cols-3 gap-3 mt-2 max-sm:grid-cols-2'>
+                <div className='p-2 rounded-md h-[280px] overflow-auto scrollbar'>
+                    <div className='grid grid-cols-3 gap-3 max-sm:grid-cols-2'>
                         {ingredients.map((ingredient, id) => (
                             <IngredientCard
                                 key={id}
@@ -67,7 +66,7 @@ export const PizzaForm: React.FC<Props> = ({ className, name, imageUrl, ingredie
 
                     </div>
                 </div>
-                <Button loading={loading} onClick={handleClickAdd} className='h-[55px] text-base px-10 rounded-[18px] w-full mt-10'>
+                <Button loading={loading} onClick={handleClickAdd} className='h-[55px] mt-3 text-base px-10 rounded-[18px] w-full'>
                     Добавить в корзину за {totalPrice} ₸
                 </Button>
             </div>
